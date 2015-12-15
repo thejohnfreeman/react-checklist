@@ -29,7 +29,7 @@
     "webpack-dev-server": "^1.14.0"
   },
   "scripts": {
-    "install": "webpack --progress --colors --optimize-minimize",
+    "build": "webpack --progress --colors --optimize-minimize",
     "lint": "eslint src",
     "start": "webpack-dev-server --progress --colors --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
