@@ -34,3 +34,6 @@ React must be included in any module that uses JSX
 --inline will always reload full page
 cannot hot reload the module that calls ReactDom.render
 react-hot requires webpack-dev-server entry point
+
+most basic assets require file-loader
+url-loader can be used instead of file-loader as an optimization

@@ -20,6 +20,7 @@ module.exports = {
     ],
     loaders: [
       {test: /\.css$/, loaders: ['style', 'css']},
+      {test: /\.(ttf|eot|svg|woff2?|png)$/, loader: 'url?limit=8192'},
       {
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel?cacheDirectory'],
