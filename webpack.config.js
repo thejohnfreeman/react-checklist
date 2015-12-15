@@ -5,7 +5,7 @@ var src = path.join(__dirname, 'src')
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://0.0.0.0:8080',
     'webpack/hot/only-dev-server',
     path.join(src, 'app.js'),
   ],
@@ -34,5 +34,6 @@ module.exports = {
       template: path.join(src, 'template.html'),
     }),
     new webpack.NoErrorsPlugin(),
-  ]
+  ],
+  devServer: {host: '0.0.0.0'},
 }
