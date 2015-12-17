@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import React from 'react'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 
@@ -15,19 +16,27 @@ var ButtonForm = React.createClass({
 var DictionarySelector = React.createClass({
     mixins: [LinkedStateMixin],
     getInitialState() {
-        return  {value: ''}
+        return {value: ''}
     },
     render() {
         return (
-            <div className="ui form" style={{marginTop:'55px'}}>
-                <div className="field">
-                    <select className="ui dropdown" valueLink={this.linkState('value')}>
-                        <option value="">Select Dictionary</option>
-                        <option value="1">Dictionary 1</option>
-                        <option value="2">Dictionary 2</option>
-                    </select>
+            <div>
+              <div className="ui fluid search selection dropdown"
+              ref={(elt) => $(elt).dropdown({
+                onChange: (value) => this.setState({value: value})
+              })}>
+                <input type="hidden" name="country"/>
+                <i className="dropdown icon"></i>
+                <div className="default text">Select Country</div>
+                <div className="menu">
+                  <div className="item" data-value="fi"><i className="fi flag"></i>Finland</div>
+                  <div className="item" data-value="de"><i className="de flag"></i>Germany</div>
+                  <div className="item" data-value="mx"><i className="mx flag"></i>Mexico</div>
+                  <div className="item" data-value="us"><i className="us flag"></i>United States</div>
+                  <div className="item" data-value="vn"><i className="vn flag"></i>Vietnam</div>
                 </div>
-                <p>You selected: {this.state.value}</p>
+              </div>
+              <p>You selected: {this.state.value}</p>
             </div>
         )
     }
