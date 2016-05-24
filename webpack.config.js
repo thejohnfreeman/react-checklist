@@ -5,8 +5,6 @@ var src = path.join(__dirname, 'src')
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://0.0.0.0:8080',
-    'webpack/hot/only-dev-server',
     path.join(src, 'app.js'),
   ],
   output: {
@@ -19,6 +17,7 @@ module.exports = {
       {test: /\.jsx?$/, loader: 'eslint', include: src}
     ],
     loaders: [
+      {test: /\.html$/, loader: "raw-loader"},
       {test: /\.css$/, loaders: ['style', 'css']},
       {test: /\.(ttf|eot|svg|woff2?|png)$/, loader: 'url?limit=8192'},
       {
@@ -30,10 +29,12 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      inject: true,
       template: path.join(src, 'template.html'),
     }),
     new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+    }),
   ],
   devServer: {host: '0.0.0.0'},
 }
