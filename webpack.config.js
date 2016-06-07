@@ -29,7 +29,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(src, 'index-template.html'),
+      template: path.join(src, 'index.html'),
     }),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
