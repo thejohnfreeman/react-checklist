@@ -5,7 +5,7 @@ var src = path.join(__dirname, 'src')
 
 module.exports = {
   entry: [
-    path.join(src, 'app.js'),
+    path.join(src, 'index.js'),
   ],
   output: {
     path: path.join(__dirname, 'public'),
@@ -29,7 +29,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(src, 'template.html'),
+      template: path.join(src, 'index-template.html'),
     }),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
