@@ -4,3 +4,7 @@ li {
   margin: 1px;
   list-style: none;
 }
+
+div {
+  margin: 2em;
+}
