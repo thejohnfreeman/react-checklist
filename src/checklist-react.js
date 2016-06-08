@@ -1,13 +1,10 @@
 import React from 'react'
 
 var Todo = React.createClass({
-  onChange() {
-    this.props.toggle(this.props.todo)
-  },
   render() {
     return (
       <li className="item" style={{backgroundColor: this.props.todo.completed ? 'lightgreen' : 'lightcoral'}}>
-        <input type="checkbox" checked={this.props.todo.completed} onChange={this.onChange} />
+        <input type="checkbox" checked={this.props.todo.completed} onChange={this.props.onChange} />
         {this.props.todo.text}
       </li>
     )
@@ -22,15 +19,18 @@ var TodoList = React.createClass({
       {text: 'c', completed: false},
     ]}
   },
-  toggle(todo) {
+  toggle(index) {
+    var todo = this.state.items[index]
     todo.completed = !todo.completed
     this.forceUpdate()
   },
   render() {
-    return (<ul>
-      {this.state.items.map((t, i) => <Todo key={i} todo={t} toggle={this.toggle} />)}
-      <li key={-1}>{this.state.items.filter(t => !t.completed).length} items left</li>
-      </ul>)
+    return (
+      <ul>
+        {this.state.items.map((t, i) => <Todo key={i} todo={t} onChange={() => this.toggle(i)} />)}
+        <li key={-1}>{this.state.items.filter(t => !t.completed).length} items left</li>
+      </ul>
+    )
   }
 })
 

@@ -38,22 +38,23 @@ var TOGGLE_ACTION = 'TOGGLE'
 // - the Flux dispatcher forwards the action to a user-defined dispatcher
 // - the user-defined dispatcher calls the receiving function as intended
 
-function sendToggle(todo) {
+function sendToggle(index) {
   var action = {
     type: TOGGLE_ACTION,
-    args: [todo],
+    index: index,
   }
   dispatcher.dispatch(action)
 }
 
-function receieveToggle(todo) {
+function receieveToggle(index) {
+  var todo = items[index]
   todo.completed = !todo.completed
 }
 
 function dispatchAction(action) {
   // Throw away the language and do our own method dispatch.
   if (action.type == TOGGLE_ACTION) {
-    receieveToggle.apply(todoListStore, action.args)
+    receieveToggle(action.index)
     // Every recognized action is a change.
     todoListStore.emitChangeEvent()
   }
@@ -66,7 +67,7 @@ var Todo = React.createClass({
     // Changes go straight to the dispatcher. On one hand, we don't need
     // callbacks from our parent, but on the other hand, we cannot create
     // multiple components because they all share the global store.
-    sendToggle(this.props.todo)
+    sendToggle(this.props.index)
   },
   render() {
     return (
@@ -86,10 +87,12 @@ var TodoList = React.createClass({
     todoListStore.removeChangeListener(this.forceUpdate.bind(this))
   },
   render() {
-    return (<ul>
-      {todoListStore.getItems().map((t, k) => <Todo key={k} todo={t} toggle={this.toggle} />)}
-      <li key={-1}>{todoListStore.getItems().filter(t => !t.completed).length} items left</li>
-      </ul>)
+    return (
+      <ul>
+        {todoListStore.getItems().map((t, i) => <Todo key={i} todo={t} index={i} />)}
+        <li key={-1}>{todoListStore.getItems().filter(t => !t.completed).length} items left</li>
+      </ul>
+    )
   }
 })
 

@@ -1,12 +1,13 @@
 {
-  "name": "todomvc-react",
+  "name": "checklist-demo",
   "version": "0.1.0",
   "description": "",
-  "repository": "https://github.com/thejohnfreeman/todomvc-react",
+  "repository": "https://github.com/thejohnfreeman/checklist-demo",
   "dependencies": {
     "flux": "^2.1.1",
     "react": "^0.14.3",
-    "react-dom": "^0.14.3"
+    "react-dom": "^0.14.3",
+    "redux": "^3.5.2"
   },
   "devDependencies": {
     "babel-core": "^6.3.17",
