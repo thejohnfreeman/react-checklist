@@ -1,5 +1,6 @@
 import React from 'react'
 import { createStore } from 'redux'
+import {mutate} from './mutators.js'
 
 var defaultItems = [
   {text: 'a', completed: false},
@@ -10,13 +11,12 @@ var defaultItems = [
 var TOGGLE_ACTION = 'TOGGLE'
 
 function reducer(state = defaultItems, action) {
-  var newState = [...state]
-  if (action.type == TOGGLE_ACTION) {
-    var index = action.index
-    var todo = state[index]
-    newState[index] = Object.assign({}, todo, { completed: !todo.completed })
+  if (action.type === TOGGLE_ACTION) {
+    return mutate(
+      state, [action.index, 'completed'],
+      (completed) => !completed)
   }
-  return newstate
+  return state
 }
 
 var todoListStore = createStore(reducer)

@@ -1,20 +1,21 @@
 import React from 'react'
 import Flux from 'flux'
 import EventEmitter from 'events'
+import {mutate} from './mutators.js'
 
 var dispatcher = new Flux.Dispatcher()
 
 // The store is global state.
-var items = [
+var state = {items: [
   {text: 'a', completed: false},
   {text: 'b', completed: true},
   {text: 'c', completed: false},
-]
+]}
 
 var todoListStore = Object.assign({}, EventEmitter.prototype, {
   // Stores expose non-mutating getters.
   getItems() {
-    return items
+    return state.items
   },
   // Every store needs boilerplate to notify observers.
   CHANGE_EVENT: 'CHANGE',
@@ -47,8 +48,9 @@ function sendToggle(index) {
 }
 
 function receieveToggle(index) {
-  var todo = items[index]
-  todo.completed = !todo.completed
+  state.items = mutate(
+      state.items, [index, 'completed'],
+      (completed) => !completed)
 }
 
 function dispatchAction(action) {

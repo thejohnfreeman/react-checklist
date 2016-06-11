@@ -1,4 +1,5 @@
 import React from 'react'
+import {mutate} from './mutators.js'
 
 var Todo = React.createClass({
   render() {
@@ -20,9 +21,10 @@ var TodoList = React.createClass({
     ]}
   },
   toggle(index) {
-    var todo = this.state.items[index]
-    todo.completed = !todo.completed
-    this.forceUpdate()
+    var newState = mutate(
+      this.state, ['items', index, 'completed'],
+      (completed) => !completed)
+    this.setState(newState)
   },
   render() {
     return (
