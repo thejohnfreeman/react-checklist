@@ -4,6 +4,7 @@
   "description": "",
   "repository": "https://github.com/thejohnfreeman/checklist-demo",
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "flux": "^2.1.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

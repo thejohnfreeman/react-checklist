@@ -4,14 +4,11 @@ function mutate(state, path, f) {
   }
   var key = path[0]
   var subpath = path.slice(1)
-  if (Array.isArray(state)) {
-    var newState = [...state]
-    newState[key] = mutate(newState[key], subpath, f)
-    return newState
-  }
-  var changes = {}
-  changes[key] = mutate(state[key], subpath, f)
-  return Object.assign({}, state, changes)
+  var newState = (Array.isArray(state))
+    ? [...state]
+    : {...state}
+  newState[key] = mutate(newState[key], subpath, f)
+  return newState
 }
 
 module.exports = {mutate}
