@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import Flux from 'flux'
 import EventEmitter from 'events'
 import {mutate} from './mutators.js'
@@ -98,4 +99,4 @@ var TodoList = React.createClass({
   }
 })
 
-module.exports = TodoList
+ReactDOM.render(<TodoList/>, document.getElementById('checklist-flux'))

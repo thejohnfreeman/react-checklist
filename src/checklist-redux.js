@@ -1,5 +1,6 @@
 import React from 'react'
-import { createStore } from 'redux'
+import ReactDOM from 'react-dom'
+import {createStore} from 'redux'
 import {mutate} from './mutators.js'
 
 var defaultItems = [
@@ -47,12 +48,6 @@ var Todo = React.createClass({
 })
 
 var TodoList = React.createClass({
-  componentDidMount() {
-    todoListStore.subscribe(this.forceUpdate.bind(this))
-  },
-  componentWillUnmount() {
-    todoListStore.unsubscribe(this.forceUpdate.bind(this))
-  },
   render() {
     return (<ul>
       {todoListStore.getState().map((t, i) => <Todo key={i} todo={t} index={i} />)}
@@ -61,4 +56,8 @@ var TodoList = React.createClass({
   }
 })
 
-module.exports = TodoList
+const render = () => {
+  ReactDOM.render(<TodoList/>, document.getElementById('checklist-redux'))
+}
+todoListStore.subscribe(render)
+render()

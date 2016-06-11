@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import {mutate} from './mutators.js'
 
 var Todo = React.createClass({
@@ -36,4 +37,4 @@ var TodoList = React.createClass({
   }
 })
 
-module.exports = TodoList
+ReactDOM.render(<TodoList/>, document.getElementById('checklist-react'))
