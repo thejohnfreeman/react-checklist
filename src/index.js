@@ -7,3 +7,4 @@ if (process.env.NODE_ENV === 'development') {
 require('./checklist-react.js')
 require('./checklist-flux.js')
 require('./checklist-redux.js')
+require('./checklist-react-redux.js')
