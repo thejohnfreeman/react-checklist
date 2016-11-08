@@ -17,6 +17,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.5.0",
+    "cross-env": "^3.1.3",
     "css-loader": "^0.23.0",
     "eslint": "^1.10.3",
     "eslint-loader": "^1.1.1",
@@ -33,7 +34,7 @@
   "scripts": {
     "build": "webpack --progress --colors --optimize-minimize",
     "lint": "eslint src",
-    "start": "NODE_ENV=development webpack-dev-server --progress --colors --inline --hot --open",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --inline --hot --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "John Freeman <jfreeman08@gmail.com> (http://thejohnfreeman.com/)",
