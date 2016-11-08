@@ -36,5 +36,4 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
     }),
   ],
-  devServer: {host: '0.0.0.0'},
 }
