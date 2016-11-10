@@ -1,10 +1,7 @@
-require('./index.css')
+import './index.css'
+import 'ignore!./index.html'
 
-if (process.env.NODE_ENV === 'development') {
-    require('./index.html')
-}
-
-require('./checklist-react.js')
-require('./checklist-flux.js')
-require('./checklist-redux.js')
-require('./checklist-react-redux.js')
+import './checklist-react.js'
+import './checklist-flux.js'
+import './checklist-redux.js'
+import './checklist-react-redux.js'

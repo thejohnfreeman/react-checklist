@@ -11,15 +11,13 @@ module.exports = {
     path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
   },
-  resolve: {root: src},
   module: {
     preLoaders: [
       {test: /\.jsx?$/, loader: 'eslint', include: src}
     ],
     loaders: [
-      {test: /\.html$/, loader: "raw-loader"},
+      {test: /\.html$/, loader: 'raw'},
       {test: /\.css$/, loaders: ['style', 'css']},
-      {test: /\.(ttf|eot|svg|woff2?|png)$/, loader: 'url?limit=8192'},
       {
         test: /\.jsx?$/,
         loaders: ['react-hot', 'babel?cacheDirectory'],
@@ -32,8 +30,5 @@ module.exports = {
       template: path.join(src, 'index.html'),
     }),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-    }),
   ],
 }
