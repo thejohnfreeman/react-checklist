@@ -30,33 +30,34 @@ function sendToggle(index) {
   todoListStore.dispatch(action)
 }
 
-var Todo = React.createClass({
-  onChange() {
-    // Changes go straight to the dispatcher. On one hand, we don't need
-    // callbacks from our parent, but on the other hand, we cannot create
-    // multiple components because they all share the global store.
-    sendToggle(this.props.index)
-  },
-  render() {
-    return (
-      <li className="item" style={{backgroundColor: this.props.todo.completed ? 'lightgreen' : 'lightcoral'}}>
-        <input type="checkbox" checked={this.props.todo.completed} onChange={this.onChange} />
-        {this.props.todo.text}
-      </li>
-    )
-  }
-})
+function Todo(props) {
+  // Changes go straight to the dispatcher. On one hand, we don't need
+  // callbacks from our parent, but on the other hand, we cannot create
+  // multiple components because they all share the global store.
+  let onChange = () => sendToggle(props.index)
+  return (
+    <li className="item" style={{backgroundColor: props.todo.completed ? 'lightgreen' : 'lightcoral'}}>
+      <input type="checkbox" checked={props.todo.completed} onChange={onChange} />
+      {props.todo.text}
+    </li>
+  )
+}
+Todo.propTypes = {
+  todo: React.PropTypes.shape({
+    completed: React.PropTypes.bool.isRequired,
+    text: React.PropTypes.string.isRequired,
+  }).isRequired,
+  index: React.PropTypes.number.isRequired,
+}
 
-var TodoList = React.createClass({
-  render() {
-    return (<ul>
-      {todoListStore.getState().map((t, i) => <Todo key={i} todo={t} index={i} />)}
-      <li key={-1}>{todoListStore.getState().filter(t => !t.completed).length} items left</li>
-      </ul>)
-  }
-})
+function TodoList() {
+  return (<ul>
+    {todoListStore.getState().map((t, i) => <Todo key={i} todo={t} index={i} />)}
+    <li key={-1}>{todoListStore.getState().filter(t => !t.completed).length} items left</li>
+  </ul>)
+}
 
-const render = () => {
+function render() {
   ReactDOM.render(<TodoList/>, document.getElementById('checklist-redux'))
 }
 todoListStore.subscribe(render)

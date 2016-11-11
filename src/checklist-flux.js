@@ -65,30 +65,35 @@ function dispatchAction(action) {
 
 dispatcher.register(dispatchAction)
 
-var Todo = React.createClass({
-  onChange() {
-    // Changes go straight to the dispatcher. On one hand, we don't need
-    // callbacks from our parent, but on the other hand, we cannot create
-    // multiple components because they all share the global store.
-    sendToggle(this.props.index)
-  },
-  render() {
-    return (
-      <li className="item" style={{backgroundColor: this.props.todo.completed ? 'lightgreen' : 'lightcoral'}}>
-        <input type="checkbox" checked={this.props.todo.completed} onChange={this.onChange} />
-        {this.props.todo.text}
-      </li>
-    )
-  }
-})
+function Todo(props) {
+  // Changes go straight to the dispatcher. On one hand, we don't need
+  // callbacks from our parent, but on the other hand, we cannot create
+  // multiple components because they all share the global store.
+  let onChange = () => sendToggle(props.index)
+  return (
+    <li className="item" style={{backgroundColor: props.todo.completed ? 'lightgreen' : 'lightcoral'}}>
+      <input type="checkbox" checked={props.todo.completed} onChange={onChange} />
+      {props.todo.text}
+    </li>
+  )
+}
+Todo.propTypes = {
+  todo: React.PropTypes.shape({
+    completed: React.PropTypes.bool.isRequired,
+    text: React.PropTypes.string.isRequired,
+  }).isRequired,
+  index: React.PropTypes.number.isRequired,
+}
 
-var TodoList = React.createClass({
+class TodoList extends React.Component {
   componentDidMount() {
     todoListStore.addChangeListener(this.forceUpdate.bind(this))
-  },
+  }
+
   componentWillUnmount() {
     todoListStore.removeChangeListener(this.forceUpdate.bind(this))
-  },
+  }
+
   render() {
     return (
       <ul>
@@ -97,6 +102,6 @@ var TodoList = React.createClass({
       </ul>
     )
   }
-})
+}
 
 ReactDOM.render(<TodoList/>, document.getElementById('checklist-flux'))
